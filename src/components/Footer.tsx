@@ -30,7 +30,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
               <a
-                href="https://www.linkedin.com/in/fengyun-yu"
+                href={process.env.LINKEDIN_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
@@ -38,7 +38,7 @@ export default function Footer() {
                 LinkedIn
               </a>
               <a
-                href="https://scholar.google.com/citations?user=[YourID]"
+                href={process.env.GOOGLE_SCHOLAR_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"

@@ -7,24 +7,24 @@ export const metadata: Metadata = {
 
 const publications = [
   {
-    title: 'Wang C, Yu F, et al. (2025)',
-    journal: 'Journal of Scientific Computing',
-    description: 'Geometric Deep Learning for Healthcare Applications',
+    title: 'Exploring COPD patient clusters and associations with health-related quality of life using a machine learning approach: a nationwide cross-sectional study',
+    journal: 'Engineering',
+    description: 'identify the phenotypes of COPD patients with respect to the socio-characteristics and comorbidities using unsupervised machine learning techniques',
   },
   {
-    title: 'Yu F, et al. (2024)',
-    journal: 'Nature Machine Intelligence',
-    description: 'Causal Inference in Healthcare: A Novel Approach',
+    title: 'Preferences regarding COVID-19 vaccination among 12,000 adults in China: A cross-sectional discrete choice experiment.',
+    journal: 'PLOS Global Public Health',
+    description: 'how the vaccine preference changes with respect to the socio-characteristics using supervised machine learning techniques',
   },
   {
-    title: 'Yu F, et al. (2021)',
-    journal: 'IEEE Transactions on Medical Imaging',
-    description: 'Machine Learning for Medical Image Analysis',
+    title: 'The global economic burden of chronic obstructive pulmonary disease for 204 countries and territories in 2020-50: a health-augmented macroeconomic modelling study.',
+    journal: 'Lancet Glob Health',
+    description: 'First to estimate the global economic burden of COPD using a health-augmented macroeconomic modelling approach',
   },
   {
-    title: 'Chen S, Yu F, et al. (2023)',
-    journal: 'Health Economics',
-    description: 'Economic Impact of Healthcare Interventions',
+    title: 'Knowledge About COVID-19 Among Adults in China: Cross-sectional Online Survey',
+    journal: 'Journal of Medical Internet Research',
+    description: 'First to explore the knowledge about COVID-19 among adults in China using a cross-sectional online survey',
   },
 ];
 
