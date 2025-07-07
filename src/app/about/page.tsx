@@ -32,7 +32,7 @@ export default function About() {
                   <h4 className="text-base font-medium text-navy-900">Bachelor of Science</h4>
                   <p className="mt-1 text-sm text-gray-500">Tsinghua University</p>
                   <p className="mt-1 text-sm text-gray-500">2017.7 - 2021.6</p>
-                  <p className="mt-1 text-sm text-gray-500">GPA: 3.67/4.00</p>
+                  <p className="mt-1 text-sm text-gray-500">GPA: 3.7/4.00</p>
                 </div>
               </div>
             </div>
