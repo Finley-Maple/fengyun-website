@@ -1,16 +1,9 @@
 {
-  "version": 2,
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["fra1"],
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
   "env": {
     "NEXT_PUBLIC_SITE_URL": "https://fengyunyu.de",
     "GOOGLE_SCHOLAR_LINK": "https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en",
