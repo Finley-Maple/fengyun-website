@@ -3,9 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
+import { execFileSync } from 'child_process';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.join(__dirname, '..', '..', 'content', 'blog');
+const REPO_ROOT = path.join(__dirname, '..', '..');
 const PORT = process.env.PORT || 4321;
 
 const app = express();
@@ -60,6 +62,32 @@ function writePost(slug, { title, date, excerpt, tags, body, draft }) {
   fs.writeFileSync(path.join(BLOG_DIR, `${slug}.md`), frontmatter, 'utf8');
 }
 
+function publishPost(slug, title) {
+  const relPath = path.join('content', 'blog', `${slug}.md`);
+  execFileSync('git', ['add', relPath], { cwd: REPO_ROOT, stdio: 'pipe' });
+  try {
+    execFileSync('git', ['commit', '-m', `Blog post: ${title}`], {
+      cwd: REPO_ROOT,
+      stdio: 'pipe',
+    });
+  } catch (err) {
+    const output = `${err.stdout || ''}${err.stderr || ''}`;
+    if (!output.includes('nothing to commit')) {
+      throw new Error(output || err.message);
+    }
+  }
+  let pushError = null;
+  try {
+    execFileSync('git', ['push'], { cwd: REPO_ROOT, stdio: 'pipe' });
+  } catch (err) {
+    pushError = err.stderr ? err.stderr.toString() : err.message;
+  }
+  const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT })
+    .toString()
+    .trim();
+  return { commit, pushError };
+}
+
 app.get('/api/posts', (req, res) => {
   if (!fs.existsSync(BLOG_DIR)) return res.json([]);
   const posts = fs
@@ -87,6 +115,14 @@ app.post('/api/posts', (req, res) => {
   } catch (err) {
     return res.status(500).json({ error: `Could not save file: ${err.message}` });
   }
+  if (action === 'publish') {
+    try {
+      const { commit, pushError } = publishPost(slug, title);
+      return res.json({ slug, commit, pushError });
+    } catch (err) {
+      return res.status(500).json({ slug, error: err.message });
+    }
+  }
   res.json({ slug });
 });
 
@@ -100,6 +136,14 @@ app.put('/api/posts/:slug', (req, res) => {
     writePost(slug, { title, date, excerpt, tags, body, draft: action !== 'publish' });
   } catch (err) {
     return res.status(500).json({ error: `Could not save file: ${err.message}` });
+  }
+  if (action === 'publish') {
+    try {
+      const { commit, pushError } = publishPost(slug, title);
+      return res.json({ slug, commit, pushError });
+    } catch (err) {
+      return res.status(500).json({ slug, error: err.message });
+    }
   }
   res.json({ slug });
 });

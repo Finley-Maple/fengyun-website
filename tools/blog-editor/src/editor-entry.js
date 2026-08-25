@@ -135,7 +135,14 @@ async function save(action) {
   }
   currentSlug = result.slug;
   if (action === 'publish') {
-    setStatus('Draft saved (publish wiring comes in a later task).');
+    if (result.pushError) {
+      setStatus(
+        `Committed locally (${result.commit.slice(0, 7)}) but push failed: ${result.pushError}`,
+        true
+      );
+    } else {
+      setStatus(`Published! Commit ${result.commit.slice(0, 7)}`);
+    }
   } else if (action === 'discuss') {
     setStatus(`Saved. Ask Claude to review content/blog/${result.slug}.md`);
   } else {
