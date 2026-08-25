@@ -10,5 +10,6 @@ export const navigationItems: NavItem[] = [
   { label: 'CV', href: '/cv' },
   { label: 'Publications', href: '/publications' },
   { label: 'Personal Interests', href: '/personal-interests' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]; 
