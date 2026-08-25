@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog Editor</title>
+    <link rel="stylesheet" href="/dist/bundle.css" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="screen-list" class="screen">
+      <header class="topbar">
+        <h1>My Posts</h1>
+        <button id="new-post-button" type="button" class="button primary">New Post</button>
+      </header>
+      <div id="post-list" class="post-list"></div>
+    </div>
+
+    <div id="screen-editor" class="screen hidden">
+      <header class="topbar">
+        <button id="back-button" type="button" class="button">&larr; My Posts</button>
+        <div class="actions">
+          <button id="discuss-button" type="button" class="button">Discuss/Polish</button>
+          <button id="save-draft-button" type="button" class="button">Save Draft</button>
+          <button id="publish-button" type="button" class="button primary">Publish</button>
+        </div>
+      </header>
+      <div class="fields">
+        <input id="field-title" type="text" placeholder="Post title" class="field-title-input" />
+        <div class="field-row">
+          <input id="field-date" type="date" />
+          <input id="field-tags" type="text" placeholder="Tags, comma separated" />
+        </div>
+        <input id="field-excerpt" type="text" placeholder="One-line excerpt" class="field-excerpt-input" />
+      </div>
+      <div id="editor-root" class="editor-root"></div>
+      <p id="status" class="status"></p>
+    </div>
+
+    <script src="/dist/bundle.js"></script>
+  </body>
+</html>
