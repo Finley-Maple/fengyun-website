@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import { execFileSync } from 'child_process';
+import open from 'open';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.join(__dirname, '..', '..', 'content', 'blog');
@@ -155,6 +156,9 @@ app.put('/api/posts/:slug', (req, res) => {
   res.json({ slug });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Blog editor running at http://localhost:${PORT}`);
+  if (!process.env.BLOG_EDITOR_NO_OPEN) {
+    await open(`http://localhost:${PORT}`);
+  }
 });

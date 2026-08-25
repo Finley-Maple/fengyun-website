@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "write": "[ -d tools/blog-editor/node_modules ] || npm install --prefix tools/blog-editor; npm start --prefix tools/blog-editor"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
