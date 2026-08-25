@@ -50,6 +50,12 @@ function readPost(slug) {
   };
 }
 
+function resolveDraftFlag(action, existingDraft) {
+  if (action === 'publish') return false;
+  if (action === 'save-draft') return true;
+  return existingDraft ?? true;
+}
+
 function writePost(slug, { title, date, excerpt, tags, body, draft }) {
   fs.mkdirSync(BLOG_DIR, { recursive: true });
   const frontmatter = matter.stringify(body || '', {
@@ -111,7 +117,7 @@ app.post('/api/posts', (req, res) => {
   }
   const slug = uniqueSlug(slugify(title));
   try {
-    writePost(slug, { title, date, excerpt, tags, body, draft: action !== 'publish' });
+    writePost(slug, { title, date, excerpt, tags, body, draft: resolveDraftFlag(action, undefined) });
   } catch (err) {
     return res.status(500).json({ error: `Could not save file: ${err.message}` });
   }
@@ -128,12 +134,13 @@ app.post('/api/posts', (req, res) => {
 
 app.put('/api/posts/:slug', (req, res) => {
   const { slug } = req.params;
-  if (!readPost(slug)) {
+  const existing = readPost(slug);
+  if (!existing) {
     return res.status(404).json({ error: 'Post not found' });
   }
   const { title, date, excerpt, tags, body, action } = req.body;
   try {
-    writePost(slug, { title, date, excerpt, tags, body, draft: action !== 'publish' });
+    writePost(slug, { title, date, excerpt, tags, body, draft: resolveDraftFlag(action, existing.draft) });
   } catch (err) {
     return res.status(500).json({ error: `Could not save file: ${err.message}` });
   }
