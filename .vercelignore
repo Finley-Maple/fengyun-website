@@ -2,4 +2,5 @@
 .next
 node_modules
 README.md
-.env* 
+.env*
+tools/blog-editor 
