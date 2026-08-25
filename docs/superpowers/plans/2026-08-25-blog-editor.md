@@ -350,7 +350,7 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
         <div
-          className="prose prose-navy max-w-none mt-10"
+          className="prose max-w-none mt-10"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </div>
@@ -415,7 +415,7 @@ rm content/blog/hello-world.md
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/app/blog/\[slug\]/page.tsx src/types/navigation.ts
+git add "src/app/blog/[slug]/page.tsx" src/types/navigation.ts
 git commit -m "Add individual blog post page and nav link"
 ```
 
@@ -1059,8 +1059,12 @@ Open `http://localhost:4321` in the browser (use the Browser tool's `preview_sta
 
 - [ ] **Step 4: Stop the server and remove the scratch post**
 
+The server was started in an earlier step (possibly a separate shell
+invocation from this one, since browser interaction happened in between),
+so stop it by port rather than relying on shell job control:
+
 ```bash
-kill %1
+kill $(lsof -ti:4321) 2>/dev/null || true
 rm content/blog/test-post.md
 ```
 
@@ -1224,9 +1228,7 @@ npm run build
 cd ../..
 ```
 
-- [ ] **Step 5: Verify the real publish flow end-to-end**
-
-This step genuinely commits and pushes to the real repo (that's the feature), so clean up immediately after confirming it works.
+- [ ] **Step 5: Verify the commit half of the publish flow end-to-end**
 
 ```bash
 cd tools/blog-editor
@@ -1234,30 +1236,31 @@ node server.js &
 cd ../..
 ```
 
-In the browser: create a new post titled "Editor Smoke Test" with a short body, click Publish. Confirm the status shows "Published! Commit &lt;hash&gt;".
+In the browser: create a new post titled "Editor Smoke Test" with a short body, click Publish.
 
 ```bash
 git log -1 --oneline
 # Expected: "Blog post: Editor Smoke Test"
-git status
-# Expected: clean, and origin/main matches HEAD (git push succeeded)
 ```
+
+Confirm the commit landed. Whether the status line shows "Published! Commit ..." or "Committed locally (...) but push failed: ..." depends on whether this checkout's current branch has a configured upstream to push to — either outcome is correct evidence that the commit path and the response-handling code both work; a push failure here is expected and fine if this branch has no upstream configured (check `git status` — "no upstream branch" confirms that's the reason, not a bug).
 
 Also verify "Discuss/Polish": reopen the same post, click "Discuss/Polish", confirm the status shows "Saved. Ask Claude to review content/blog/editor-smoke-test.md" — then actually ask Claude (in this chat) to review that file, and confirm Claude can read it directly.
 
-- [ ] **Step 6: Remove the smoke-test post and push the removal**
+- [ ] **Step 6: Remove the smoke-test post**
 
 ```bash
-kill %1
+kill $(lsof -ti:4321) 2>/dev/null || true
 rm content/blog/editor-smoke-test.md
 git add content/blog/editor-smoke-test.md
 git commit -m "Remove editor smoke-test post"
-git push
 ```
 
-- [ ] **Step 7: Review the failure path (code inspection, not a live test)**
+Only run `git push` here if Step 5's commit actually reached a remote (i.e. this branch has an upstream); otherwise there is nothing pushed to clean up remotely yet, and this local commit is enough.
 
-Re-read the `publishPost` function above and confirm: `execFileSync` throws an `Error` with `.stdout`/`.stderr` `Buffer` properties on non-zero exit (this is documented Node.js `child_process` behavior); the `git push` failure is caught separately from `git add`/`git commit` so a network failure surfaces as `pushError` on an otherwise-successful local commit, never as a crash or a silently-swallowed error. (A live simulated network failure isn't tested here — doing that safely would mean temporarily repointing this repo's real `origin` remote, which the spec calls out as not worth the risk for a one-person tool. This code-reading pass is the documented mitigation.)
+- [ ] **Step 7: Review the failure path (code inspection, corroborating Step 5)**
+
+Re-read the `publishPost` function above and confirm: `execFileSync` throws an `Error` with `.stdout`/`.stderr` `Buffer` properties on non-zero exit (this is documented Node.js `child_process` behavior); the `git push` failure is caught separately from `git add`/`git commit` so a network or upstream failure surfaces as `pushError` on an otherwise-successful local commit, never as a crash or a silently-swallowed error. If Step 5 already exercised a real push failure (no upstream), that observed behavior is the primary evidence and this is just confirming the code matches what was observed; if Step 5's push actually succeeded (upstream was configured), this code-reading pass is what covers the failure path instead.
 
 - [ ] **Step 8: Commit the git-wiring code itself**
 
@@ -1316,29 +1319,23 @@ app.listen(PORT, async () => {
 });
 ```
 
-- [ ] **Step 3: Rebuild and verify both paths**
+- [ ] **Step 3: Rebuild and verify the no-open path, then check the auto-open path by reading the code**
+
+`open()` launches the host OS's default browser as a separate native window, which is not something a terminal command or this session can visually observe — so verify it in two parts: an automated check that the server itself comes up correctly with the flag set (this is what actually matters for the `/blog` skill in Task 9, which always sets the flag), and a code-reading check that the unconditional path is wired correctly.
 
 ```bash
 cd tools/blog-editor
 npm run build
 cd ../..
 
-npm run write &
-sleep 2
-```
-
-Expected: a browser window opens automatically to `http://localhost:4321` showing "My Posts".
-
-```bash
-kill %1
 BLOG_EDITOR_NO_OPEN=1 npm run write &
 sleep 2
 curl -s -o /dev/null -w '%{http_code}' http://localhost:4321
 # Expected: 200
-kill %1
+kill $(lsof -ti:4321) 2>/dev/null || true
 ```
 
-Expected: no browser window opens this time, but the server is confirmed reachable via curl.
+Then re-read the `app.listen` block above and confirm: the `open()` call sits inside `if (!process.env.BLOG_EDITOR_NO_OPEN)`, so with the flag set (as just verified) it's skipped entirely, and without it the only code path is `await open(...)` with no other conditions — i.e. running `npm run write` (no flag) will call it unconditionally once the port is confirmed live.
 
 - [ ] **Step 4: Commit**
 
@@ -1394,14 +1391,29 @@ project and opens it in the browser, so Finley can go straight from typing
    bring up in this chat for feedback.
 ```
 
-- [ ] **Step 2: Dry-run the skill's steps manually to confirm they work**
+- [ ] **Step 2: Dry-run the skill's steps against the current checkout**
+
+The skill file itself points at the real project path
+(`/Users/finleyyu/Desktop/人事材料/homepage/fengyun-website`) because that's
+where Finley will actually invoke `/blog` day to day, once this feature is
+merged. Right now, though, this work is happening in an isolated worktree
+checkout — substitute the current working directory (this task's `pwd`)
+for that path when dry-running the steps below, purely so the mechanics
+can be verified before that merge happens:
 
 ```bash
-ls "/Users/finleyyu/Desktop/人事材料/homepage/fengyun-website/tools/blog-editor/node_modules" > /dev/null && echo "deps present"
+ls tools/blog-editor/node_modules > /dev/null && echo "deps present"
 lsof -i :4321 || echo "port free"
 ```
 
-If "port free": start it exactly as the skill describes (`BLOG_EDITOR_NO_OPEN=1 npm run write`, backgrounded, from the project root), then open `http://localhost:4321` with the Browser tool and confirm "My Posts" loads. Then stop the background server.
+If "port free": start it exactly as the skill describes
+(`BLOG_EDITOR_NO_OPEN=1 npm run write`, backgrounded, from the project
+root), then open `http://localhost:4321` with the Browser tool and confirm
+"My Posts" loads. Then stop it:
+
+```bash
+kill $(lsof -ti:4321) 2>/dev/null || true
+```
 
 - [ ] **Step 3: Commit the repo-visible parts only**
 
@@ -1423,25 +1435,29 @@ Expected: clean working tree (everything from Tasks 1–8 was already committed)
 
 Start the editor the way Finley actually will — `BLOG_EDITOR_NO_OPEN=1 npm run write` in the background, then open `http://localhost:4321` via the Browser tool. Write a genuine test post end to end: New Post → type a title, tags, excerpt, and a body with a heading, bold text, and a list → Save Draft → confirm the file and its frontmatter via `cat` → go back to "My Posts" and confirm it's listed as a draft → reopen it → edit the body → Publish → confirm the status shows a commit hash.
 
-- [ ] **Step 2: Verify it's actually live**
+- [ ] **Step 2: Verify the commit landed**
 
 ```bash
 git log -1 --oneline
 ```
 
-Then check the corresponding Vercel deployment has picked it up (the same GitHub-integration pipeline verified in the earlier vercel.json fix): visit the Deployments list for the `fengyun-website` project and confirm a new deployment triggered by this commit, and once it's Ready, visit `https://www.yufengyun.de/blog` and confirm the test post appears, and `https://www.yufengyun.de/blog/<slug>` renders it correctly.
+This work is happening in an isolated worktree on its own branch (not
+`main`), so a real push to origin and a live Vercel deployment aren't
+reachable from here — Vercel only deploys from `main`, and this branch has
+no upstream configured yet. Confirming the local commit (and, per Task 7,
+that a push attempt fails cleanly with a clear `pushError` rather than
+crashing) is the complete evidence available at this stage. The actual
+"does it go live on yufengyun.de" check happens once, after this branch is
+reviewed and merged to `main` — not as part of this per-task loop.
 
 - [ ] **Step 3: Remove the test post**
 
 ```bash
-kill %1  # stop the local editor server
+kill $(lsof -ti:4321) 2>/dev/null || true
 rm content/blog/<slug-used-above>.md
 git add content/blog/<slug-used-above>.md
 git commit -m "Remove end-to-end test post"
-git push
 ```
-
-Confirm the Vercel deployment for this removal also goes green, and `https://www.yufengyun.de/blog` no longer lists the test post.
 
 - [ ] **Step 4: Final check**
 
