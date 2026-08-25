@@ -121,32 +121,41 @@ async function save(action) {
     return;
   }
   setStatus('Saving...');
-  const url = currentSlug ? `/api/posts/${currentSlug}` : '/api/posts';
-  const method = currentSlug ? 'PUT' : 'POST';
-  const res = await fetch(url, {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  const result = await res.json();
-  if (!res.ok) {
-    setStatus(result.error || 'Save failed.', true);
-    return;
-  }
-  currentSlug = result.slug;
-  if (action === 'publish') {
-    if (result.pushError) {
+  try {
+    const url = currentSlug ? `/api/posts/${currentSlug}` : '/api/posts';
+    const method = currentSlug ? 'PUT' : 'POST';
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+    if (!res.ok) {
+      if (result.slug) currentSlug = result.slug;
+      setStatus(result.error || 'Save failed.', true);
+      return;
+    }
+    currentSlug = result.slug;
+    if (action === 'publish') {
+      if (result.pushError) {
+        setStatus(
+          `Committed locally (${result.commit.slice(0, 7)}) but push failed: ${result.pushError}`,
+          true
+        );
+      } else {
+        setStatus(`Published to ${result.branch}! Commit ${result.commit.slice(0, 7)}`);
+        el('status').innerHTML +=
+          ' <a href="https://vercel.com/finley-maples-projects/fengyun-website/deployments" target="_blank">View deployment</a>';
+      }
+    } else if (action === 'discuss') {
       setStatus(
-        `Committed locally (${result.commit.slice(0, 7)}) but push failed: ${result.pushError}`,
-        true
+        `Saved. Ask Claude to review content/blog/${result.slug}.md, then click "← My Posts" and reopen this post to load Claude's edits before saving again.`
       );
     } else {
-      setStatus(`Published! Commit ${result.commit.slice(0, 7)}`);
+      setStatus('Draft saved.');
     }
-  } else if (action === 'discuss') {
-    setStatus(`Saved. Ask Claude to review content/blog/${result.slug}.md`);
-  } else {
-    setStatus('Draft saved.');
+  } catch (err) {
+    setStatus(`Save failed: ${err.message}`, true);
   }
 }
 

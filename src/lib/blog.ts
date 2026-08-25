@@ -21,7 +21,13 @@ export interface BlogPost extends BlogPostMeta {
 function readPostFile(slug: string): { meta: BlogPostMeta; body: string } {
   const filePath = path.join(BLOG_DIRECTORY, `${slug}.md`);
   const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(raw);
+  let parsed;
+  try {
+    parsed = matter(raw);
+  } catch (err) {
+    throw new Error(`Malformed frontmatter in content/blog/${slug}.md: ${(err as Error).message}`);
+  }
+  const { data, content } = parsed;
   return {
     meta: {
       slug,

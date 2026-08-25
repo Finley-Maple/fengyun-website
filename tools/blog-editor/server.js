@@ -39,7 +39,13 @@ function readPost(slug) {
   const filePath = path.join(BLOG_DIR, `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(raw);
+  let parsed;
+  try {
+    parsed = matter(raw);
+  } catch (err) {
+    throw new Error(`Malformed frontmatter in content/blog/${slug}.md: ${err.message}`);
+  }
+  const { data, content } = parsed;
   return {
     slug,
     title: data.title || slug,
@@ -73,7 +79,7 @@ function publishPost(slug, title) {
   const relPath = path.join('content', 'blog', `${slug}.md`);
   execFileSync('git', ['add', relPath], { cwd: REPO_ROOT, stdio: 'pipe' });
   try {
-    execFileSync('git', ['commit', '-m', `Blog post: ${title}`], {
+    execFileSync('git', ['commit', '-m', `Blog post: ${title}`, '--', relPath], {
       cwd: REPO_ROOT,
       stdio: 'pipe',
     });
@@ -92,7 +98,10 @@ function publishPost(slug, title) {
   const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT })
     .toString()
     .trim();
-  return { commit, pushError };
+  const branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: REPO_ROOT })
+    .toString()
+    .trim();
+  return { commit, pushError, branch };
 }
 
 app.get('/api/posts', (req, res) => {
@@ -124,8 +133,8 @@ app.post('/api/posts', (req, res) => {
   }
   if (action === 'publish') {
     try {
-      const { commit, pushError } = publishPost(slug, title);
-      return res.json({ slug, commit, pushError });
+      const { commit, pushError, branch } = publishPost(slug, title);
+      return res.json({ slug, commit, pushError, branch });
     } catch (err) {
       return res.status(500).json({ slug, error: err.message });
     }
@@ -135,6 +144,9 @@ app.post('/api/posts', (req, res) => {
 
 app.put('/api/posts/:slug', (req, res) => {
   const { slug } = req.params;
+  if (!/^[a-z0-9-]+$/.test(slug)) {
+    return res.status(400).json({ error: 'Invalid slug' });
+  }
   const existing = readPost(slug);
   if (!existing) {
     return res.status(404).json({ error: 'Post not found' });
@@ -147,14 +159,22 @@ app.put('/api/posts/:slug', (req, res) => {
   }
   if (action === 'publish') {
     try {
-      const { commit, pushError } = publishPost(slug, title);
-      return res.json({ slug, commit, pushError });
+      const { commit, pushError, branch } = publishPost(slug, title);
+      return res.json({ slug, commit, pushError, branch });
     } catch (err) {
       return res.status(500).json({ slug, error: err.message });
     }
   }
   res.json({ slug });
 });
+
+const BUNDLE = path.join(__dirname, 'public', 'dist', 'bundle.js');
+const ENTRY = path.join(__dirname, 'src', 'editor-entry.js');
+const bundleStale = !fs.existsSync(BUNDLE) || fs.statSync(ENTRY).mtimeMs > fs.statSync(BUNDLE).mtimeMs;
+if (bundleStale) {
+  console.log('Building editor bundle...');
+  execFileSync('node', [path.join(__dirname, 'build.js')], { cwd: __dirname, stdio: 'inherit' });
+}
 
 app.listen(PORT, async () => {
   console.log(`Blog editor running at http://localhost:${PORT}`);
