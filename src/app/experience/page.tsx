@@ -8,27 +8,33 @@ export const metadata: Metadata = {
 const experiences = [
   {
     title: 'Research Assistant',
+    organization: 'Heidelberg Institute of Global Health (HIGH)',
+    period: '2026.1 - 2026.6',
+    description: 'Benchmarked time-encoding strategies (sinusoidal, learned embeddings, text serialization, LLM encoding) for mortality risk prediction on UK Biobank (n=124,158).',
+  },
+  {
+    title: 'Master\'s Thesis Researcher',
     organization: 'German Cancer Research Center (DKFZ)',
-    period: '2025.3 - Present',
-    description: 'Research in geometric deep learning and causal inference for healthcare applications.',
+    period: '2025.3 - 2026.3',
+    description: 'Built a heterogeneous graph neural network with cross-modal attention for cell segmentation in spatial transcriptomics (Segger project); manuscript in review at Nature Methods.',
   },
   {
     title: 'Research Assistant',
     organization: 'Heidelberg Universität',
-    period: '2024.9 - Present',
-    description: 'Research in scientific computing and numerical optimization.',
+    period: '2024.9 - 2025.3',
+    description: 'Developed a generative model for discrete data by projecting high-dimensional flow matching (Generative Assignment Flows).',
   },
   {
     title: 'Research Assistant',
     organization: 'CAMS & PUMC',
     period: '2023.12 - 2025.3',
-    description: 'Research in health economics and causal inference.',
+    description: 'Led clustering analysis identifying phenotypes of COPD patients from a nationwide cohort (n>10,000); co-first author, published in Engineering (2025).',
   },
   {
     title: 'Research Assistant',
     organization: 'CAMS & PUMC',
     period: '2020.12 - 2024.6',
-    description: 'Research in healthcare data analysis and machine learning.',
+    description: 'First-author discrete choice experiment on COVID-19 vaccine preferences among 12,000 adults in China; contributed to 5+ peer-reviewed publications.',
   },
 ];
 

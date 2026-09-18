@@ -9,14 +9,14 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
-    default: 'Fengyun Yu - Master Student at Universität Heidelberg',
+    default: 'Fengyun Yu - Scientific Computing Researcher',
     template: '%s | Fengyun Yu'
   },
-  description: 'Personal website of Fengyun Yu, Master student at Universität Heidelberg specializing in Computer Science.',
+  description: 'Personal website of Fengyun Yu, M.Sc. Scientific Computing (Universität Heidelberg), researching geometric deep learning, causal inference, and health economics.',
   openGraph: {
-    title: 'Fengyun Yu - Master Student at Universität Heidelberg',
-    description: 'Personal website of Fengyun Yu, Master student at Universität Heidelberg specializing in Computer Science.',
-    url: 'https://fengyunyu.de',
+    title: 'Fengyun Yu - Scientific Computing Researcher',
+    description: 'Personal website of Fengyun Yu, M.Sc. Scientific Computing (Universität Heidelberg), researching geometric deep learning, causal inference, and health economics.',
+    url: 'https://yufengyun.de',
     siteName: 'Fengyun Yu',
     locale: 'en_US',
     type: 'website',

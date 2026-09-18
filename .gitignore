@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# LaTeX build artifacts (tools/cv)
+tools/cv/*.aux
+tools/cv/*.log
+tools/cv/*.out
+tools/cv/*.pdf

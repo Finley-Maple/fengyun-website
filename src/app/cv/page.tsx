@@ -8,15 +8,15 @@ export const metadata: Metadata = {
 const highlights = [
   {
     title: 'Academic Excellence',
-    description: 'Master\'s grade: 1.4/1.0 at Universität Heidelberg',
+    description: 'M.Sc. Scientific Computing, Universität Heidelberg — grade 1.3 (sehr gut), 2026',
   },
   {
     title: 'Research Output',
-    description: '10+ publications in peer-reviewed journals',
+    description: '5+ peer-reviewed publications (2 as first/co-first author), 1 manuscript in review at Nature Methods',
   },
   {
     title: 'Research Experience',
-    description: 'Multiple research positions at DKFZ, Heidelberg Universität, and CAMS & PUMC',
+    description: 'Research positions at DKFZ, the Heidelberg Institute of Global Health, and CAMS & PUMC',
   },
   {
     title: 'Technical Skills',

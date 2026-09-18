@@ -1,6 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { getAllPosts } from '@/lib/blog';
 
 export default function Home() {
+  const recentPosts = getAllPosts().slice(0, 3);
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -17,13 +21,15 @@ export default function Home() {
                 </span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                Master's student in Scientific Computing at Universität Heidelberg
+                M.Sc. Scientific Computing, Universität Heidelberg (2026, grade 1.3)
               </p>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                I specialize in geometric deep learning, causal inference, and health economics.
+                I work on geometric deep learning for spatial omics, causal inference in healthcare,
+                and health economics — most recently building graph neural networks for cell
+                segmentation at the German Cancer Research Center (DKFZ).
               </p>
               <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
-                <div className="flex space-x-4">
+                <div className="flex flex-wrap gap-4">
                   <a
                     href="/cv"
                     className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-navy-600 hover:bg-navy-700"
@@ -35,6 +41,12 @@ export default function Home() {
                     className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-navy-700 bg-navy-100 hover:bg-navy-200"
                   >
                     Publications
+                  </a>
+                  <a
+                    href="/blog"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-navy-700 bg-navy-100 hover:bg-navy-200"
+                  >
+                    Blog
                   </a>
                 </div>
               </div>
@@ -70,24 +82,64 @@ export default function Home() {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h3 className="text-xl font-semibold text-navy-900">Geometric Deep Learning</h3>
               <p className="mt-2 text-gray-500">
-                Researching advanced neural network architectures for structured data
+                Building heterogeneous graph neural networks for cell segmentation in spatial
+                transcriptomics (Segger project, DKFZ; manuscript under review at Nature Methods)
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h3 className="text-xl font-semibold text-navy-900">Causal Inference</h3>
               <p className="mt-2 text-gray-500">
-                Developing methods to understand cause-and-effect relationships in complex systems
+                Applying discrete choice experiments and clustering methods to healthcare decisions,
+                from COVID-19 vaccine preferences (n=12,000) to COPD patient phenotypes (n&gt;10,000)
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h3 className="text-xl font-semibold text-navy-900">Health Economics</h3>
               <p className="mt-2 text-gray-500">
-                Applying computational methods to healthcare decision-making
+                Modeling the global economic burden of chronic disease and benchmarking mortality
+                risk prediction on large-scale cohorts such as UK Biobank
               </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Blog Section */}
+      {recentPosts.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-3xl font-extrabold text-navy-900 sm:text-4xl">
+                Latest from the Blog
+              </h2>
+              <p className="mt-4 text-lg text-gray-500">
+                Notes on research, engineering, and life
+              </p>
+            </div>
+            <div className="mt-12 max-w-3xl mx-auto space-y-8">
+              {recentPosts.map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
+                  <article className="border-b border-gray-200 pb-8">
+                    <h3 className="text-xl font-medium text-navy-900 group-hover:text-navy-600">
+                      {post.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{post.date}</p>
+                    {post.excerpt && <p className="mt-3 text-gray-600">{post.excerpt}</p>}
+                  </article>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-navy-700 bg-navy-100 hover:bg-navy-200"
+              >
+                View all posts
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 } 

@@ -1,0 +1,139 @@
+\documentclass[10.5pt,letterpaper]{article}
+
+\usepackage[margin=0.75in,top=0.6in,bottom=0.6in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{microtype}
+
+\setmainfont{Times New Roman}
+\linespread{0.97}
+\emergencystretch=2.5em
+
+\definecolor{linkcolor}{RGB}{30,58,95}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkcolor,
+  pdftitle={Fengyun Yu CV},
+  pdfauthor={Fengyun Yu}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\setlist{topsep=1pt,itemsep=0.5pt,parsep=0pt,partopsep=0pt}
+
+% Section headings: bold, full-width rule below
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\vspace{-6pt}\hrulefill]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\newcommand{\entry}[4]{%
+  \textbf{#1} \hfill #2\\
+  #3 \hfill \textit{#4}\\[1pt]
+}
+
+\newcommand{\subentrytitle}[2]{%
+  \textbf{#1} \hfill #2\\[1pt]
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \bfseries \MakeUppercase{Fengyun Yu}}\\[4pt]
+  Interdisciplinary Center for Scientific Computing\\
+  Universit\"at Heidelberg, Germany\\
+  e: \href{mailto:yufengyun17@gmail.com}{yufengyun17@gmail.com}\\
+  \href{https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en}{Google Scholar} \textbar\
+  \href{https://www.researchgate.net/profile/Yu-Feng-Yun?ev=hdr_xprf}{Research Gate} \textbar\
+  \href{https://github.com/Finley-Maple}{GitHub} \textbar\
+  \href{https://www.linkedin.com/in/fengyun-yu}{LinkedIn}
+\end{center}
+
+\section*{Education}
+
+\entry{Heidelberg University}{Heidelberg, Germany}{Master's degree in Scientific Computing}{2023.4 -- 2026.4}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Graduated with overall grade \textbf{1.3/1.0} (German scale, ``sehr gut''; 1.0 = highest)
+  \item Master's thesis: \textit{Digesting Cell Segmentation in Spatial Transcriptomics via Graph Representation Learning} (grade 1.3), advised by Elyas Heidari and Prof. Moritz Gerstung
+  \item Application area: Economics (Grade: 1.35)
+  \item Relevant coursework: Generative neural network (1.0), Theory of deep learning (1.0), Infinite dimension optimization (1.3), NLP with Transformer (1.3), Mathematical machine learning (1.3)
+\end{itemize}
+
+\entry{Tsinghua University}{Beijing, China}{Bachelor's degree in Industrial Engineering}{2017.7 -- 2021.6}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Average grade: 3.67/4.00 (equivalent to 1.3 in German scale as per APS); minor in Statistics
+  \item Honor: Evergrande Scholarship (top 5\% of the cohort)
+  \item Exchange semester: KTH Royal Institute of Technology, Stockholm, Sweden (2019.8 -- 2020.1)
+\end{itemize}
+
+\section*{Research Experience and Interest}
+
+\textbf{Research Interest:}
+\begin{enumerate}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Using geometric deep learning to gain insights from spatial omics data
+  \item Combination of causal inference and machine learning in medical data, with a focus on identifying causal relationships in observational studies and clinical outcomes
+\end{enumerate}
+\textbf{Additional interests:} Empirical health economics studies, numerical optimization.
+
+\section*{Bibliography}
+
+\textbf{Peer-reviewed articles}
+\begin{enumerate}[leftmargin=18pt,itemsep=3pt,topsep=2pt]
+  \item Wang C, \textbf{Yu F} (Co-first), Cao Z, et al. Exploring COPD Patient Clusters and Associations with Health-Related Quality of Life Using A Machine Learning Approach: A Nationwide Cross-Sectional Study[J]. \textit{Engineering}, 2025. \url{https://doi.org/10.1016/j.eng.2025.05.005}
+  \item \textbf{Yu F}, Jiao L, Chen Q, Wang Q, De Allegri M, et al. (2024) Preferences regarding COVID-19 vaccination among 12,000 adults in China: A cross-sectional discrete choice experiment. \textit{PLOS Global Public Health} 4(7): e0003387. \url{https://doi.org/10.1371/journal.pgph.0003387}
+  \item \textbf{Yu F}, Geldsetzer P, Meierkord A, Yang J, Chen Q, Jiao L, Abou-Arraj NE, Pan A, Wang C, B\"arnighausen T, Chen S. Knowledge About COVID-19 Among Adults in China: Cross-sectional Online Survey. \textit{J Med Internet Res}. 2021 Apr 29;23(4):e26940. \url{https://doi.org/10.2196/26940}. PMID: 33844637; PMCID: PMC8086781.
+  \item Chen S, Kuhn M, Prettner K, \textbf{Yu F}, Yang T, B\"arnighausen T, Bloom DE, Wang C. The global economic burden of chronic obstructive pulmonary disease for 204 countries and territories in 2020-50: a health-augmented macroeconomic modelling study. \textit{Lancet Glob Health}. 2023 Aug;11(8):e1183-e1193. \url{https://doi.org/10.1016/S2214-109X(23)00217-6}
+  \item[] \textit{In review:} Segger: fast and accurate cell segmentation of imaging-based spatial transcriptomics data via heterogeneous graph representation learning. \textit{Nature Methods} (submitted 2026).
+\end{enumerate}
+Additional papers: refer to \href{https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en}{Google Scholar}
+
+\section*{Major Research Experience}
+
+\subentrytitle{German Cancer Research Center (DKFZ), Lab of AI in Oncology}{Heidelberg, Germany}
+\subentrytitle{Segger: cell segmentation of imaging-based spatial transcriptomics data --- Master's thesis}{2025.3 -- 2026.3}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Built a heterogeneous graph neural network with cross-modal attention over individual transcripts and cells to improve transcript-to-cell assignment
+  \item Achieved high-precision cell segmentation on spatial transcriptomics data; work forms part of the Segger project, manuscript in review at \textbf{Nature Methods}
+\end{itemize}
+
+\subentrytitle{Heidelberg Institute of Global Health (HIGH)}{Heidelberg, Germany}
+\subentrytitle{Time-encoding benchmark for mortality risk prediction}{2026.1 -- 2026.6}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Systematically compared four time-encoding strategies (decoupled sinusoidal, learnable positional embeddings, text serialization, LLM encoding) for mortality risk prediction on UK Biobank (n=124,158)
+  \item Best-performing approach improved C-index by +0.008 over baseline (bootstrap p\textless0.001)
+\end{itemize}
+
+\subentrytitle{Universit\"at Heidelberg}{Heidelberg, Germany}
+\subentrytitle{Deep Generative Models: generative assignment flows for representing discrete data}{2024.9 -- 2025.3}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Introduced a novel generative model for the representation of joint probability distributions of discrete random variables by projecting high-dimensional flow matching
+\end{itemize}
+
+\subentrytitle{Chinese Academy of Medical Sciences \& Peking Union Medical College (CAMS\&PUMC)}{Beijing, China}
+\subentrytitle{Exploring COPD patient clusters and associations with health-related quality of life}{2023.12 -- 2025.3}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item Co-first author; published in \textbf{Engineering} (2025)
+  \item Led the clustering analysis (k-means, hierarchical clustering, latent class analysis) on a nationwide COPD cohort (n\textgreater10,000); identified four clinical phenotypes and quantified their association with health-related quality of life (EQ-5D)
+\end{itemize}
+
+\subentrytitle{Chinese Academy of Medical Sciences \& Peking Union Medical College (CAMS\&PUMC)}{Beijing, China}
+\subentrytitle{Preferences and willingness to pay for COVID-19 vaccine among adults in China}{2020.12 -- 2024.6}
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item First author; published in \textbf{PLOS Global Public Health} (2024)
+  \item Quantified vaccine preference using a mixed logit model on a nationally representative discrete choice experiment sample (n=12,000)
+  \item Contributed to 5+ peer-reviewed publications (incl. Lancet Global Health, JMIR) during a research assistantship at CAMS\&PUMC, 2021--2023
+\end{itemize}
+
+\section*{Skills and Interests}
+
+\begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
+  \item \textbf{Technical:} Python (pandas, numpy, scikit-learn, PyTorch, Streamlit, Plotly), R, SQL, MATLAB, C/C++, TypeScript/JavaScript, LaTeX
+  \item \textbf{Methods:} Graph neural networks, mixed-effects models, discrete choice experiments / mixed logit, survival analysis, Bayesian statistics, clustering, optimal transport, reinforcement learning
+  \item \textbf{Languages:} Fluent in English, Chinese (native), intermediate German (B1)
+  \item \textbf{Interests:} Marathon running, badminton, swimming
+\end{itemize}
+
+\end{document}

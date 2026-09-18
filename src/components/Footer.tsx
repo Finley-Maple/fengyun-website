@@ -24,6 +24,11 @@ export default function Footer() {
                   CV
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
@@ -44,6 +49,14 @@ export default function Footer() {
                 className="text-gray-300 hover:text-white transition-colors"
               >
                 Google Scholar
+              </a>
+              <a
+                href="https://www.researchgate.net/profile/Yu-Feng-Yun?ev=hdr_xprf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                ResearchGate
               </a>
             </div>
           </div>
