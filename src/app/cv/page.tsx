@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 const highlights = [
   {
     title: 'Academic Excellence',
-    description: 'M.Sc. Scientific Computing, Universität Heidelberg — grade 1.3 (sehr gut), 2026',
+    description: 'M.Sc. Scientific Computing, Universität Heidelberg (2026); B.Sc. Industrial Engineering, Tsinghua University',
   },
   {
     title: 'Research Output',
-    description: '5+ peer-reviewed publications (2 as first/co-first author), 1 manuscript in review at Nature Methods',
+    description: '5+ peer-reviewed publications, including first and co-first author papers',
   },
   {
     title: 'Research Experience',

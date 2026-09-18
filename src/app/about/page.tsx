@@ -26,16 +26,14 @@ export default function About() {
                   <h4 className="text-base font-medium text-navy-900">Master of Science in Scientific Computing</h4>
                   <p className="mt-1 text-sm text-gray-500">Universität Heidelberg</p>
                   <p className="mt-1 text-sm text-gray-500">2023.4 - 2026.4</p>
-                  <p className="mt-1 text-sm text-gray-500">Grade: 1.3/1.0 (sehr gut)</p>
                   <p className="mt-1 text-sm text-gray-500">
-                    Thesis: Digesting Cell Segmentation in Spatial Transcriptomics via Graph Representation Learning (1.3)
+                    Thesis: Digesting Cell Segmentation in Spatial Transcriptomics via Graph Representation Learning
                   </p>
                 </div>
                 <div>
                   <h4 className="text-base font-medium text-navy-900">Bachelor of Science in Industrial Engineering</h4>
                   <p className="mt-1 text-sm text-gray-500">Tsinghua University</p>
                   <p className="mt-1 text-sm text-gray-500">2017.7 - 2021.6</p>
-                  <p className="mt-1 text-sm text-gray-500">GPA: 3.7/4.00</p>
                   <p className="mt-1 text-sm text-gray-500">Exchange: KTH Royal Institute of Technology, 2019.8 - 2020.1</p>
                 </div>
               </div>

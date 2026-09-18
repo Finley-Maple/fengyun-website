@@ -73,7 +73,7 @@
 
 \textbf{Research Interest:}
 \begin{enumerate}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
-  \item Using geometric deep learning to gain insights from spatial omics data
+  \item Trustworthy, interpretable machine learning for health and biomedicine, where accuracy alone is not evidence of meaning; currently geometric deep learning for spatial omics data
   \item Combination of causal inference and machine learning in medical data, with a focus on identifying causal relationships in observational studies and clinical outcomes
 \end{enumerate}
 \textbf{Additional interests:} Empirical health economics studies, numerical optimization.
@@ -86,17 +86,17 @@
   \item \textbf{Yu F}, Jiao L, Chen Q, Wang Q, De Allegri M, et al. (2024) Preferences regarding COVID-19 vaccination among 12,000 adults in China: A cross-sectional discrete choice experiment. \textit{PLOS Global Public Health} 4(7): e0003387. \url{https://doi.org/10.1371/journal.pgph.0003387}
   \item \textbf{Yu F}, Geldsetzer P, Meierkord A, Yang J, Chen Q, Jiao L, Abou-Arraj NE, Pan A, Wang C, B\"arnighausen T, Chen S. Knowledge About COVID-19 Among Adults in China: Cross-sectional Online Survey. \textit{J Med Internet Res}. 2021 Apr 29;23(4):e26940. \url{https://doi.org/10.2196/26940}. PMID: 33844637; PMCID: PMC8086781.
   \item Chen S, Kuhn M, Prettner K, \textbf{Yu F}, Yang T, B\"arnighausen T, Bloom DE, Wang C. The global economic burden of chronic obstructive pulmonary disease for 204 countries and territories in 2020-50: a health-augmented macroeconomic modelling study. \textit{Lancet Glob Health}. 2023 Aug;11(8):e1183-e1193. \url{https://doi.org/10.1016/S2214-109X(23)00217-6}
-  \item[] \textit{In review:} Segger: fast and accurate cell segmentation of imaging-based spatial transcriptomics data via heterogeneous graph representation learning. \textit{Nature Methods} (submitted 2026).
 \end{enumerate}
 Additional papers: refer to \href{https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en}{Google Scholar}
 
 \section*{Major Research Experience}
 
 \subentrytitle{German Cancer Research Center (DKFZ), Lab of AI in Oncology}{Heidelberg, Germany}
-\subentrytitle{Segger: cell segmentation of imaging-based spatial transcriptomics data --- Master's thesis}{2025.3 -- 2026.3}
+\subentrytitle{Interpretability and benchmarking of Segger (E. Heidari), a graph neural network for cell segmentation --- Master's thesis}{2025.3 -- 2026.3}
 \begin{itemize}[leftmargin=18pt,itemsep=1pt,topsep=2pt]
-  \item Built a heterogeneous graph neural network with cross-modal attention over individual transcripts and cells to improve transcript-to-cell assignment
-  \item Achieved high-precision cell segmentation on spatial transcriptomics data; work forms part of the Segger project, manuscript in review at \textbf{Nature Methods}
+  \item Built an interpretability framework for Segger: extracted and analyzed its attention weights layer by layer and visualized transcript--cell and gene--gene embedding manifolds (UMAP), showing the attention space captures real gene--gene and gene--cell interaction patterns; a white-box route to unsupervised discovery of spatially variable genes
+  \item Studied Aligned Segger, which adds an alignment loss on mutually exclusive gene sets to sharpen cell boundaries and reduce ``leaky RNA''; showed the alignment loss ($\lambda=0.5$), more than model width, reshapes the embedding toward known biology, and that high raw scores (AUROC 0.979, F1 0.910) can decouple from biological meaningfulness
+  \item Benchmarked Segger against Proseg, Bering, Baysor, and BIDCell on 8 cancer datasets; only Segger and Proseg scale beyond 100 million transcripts, while the others fail with out-of-memory or timeouts
 \end{itemize}
 
 \subentrytitle{Heidelberg Institute of Global Health (HIGH)}{Heidelberg, Germany}

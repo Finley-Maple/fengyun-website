@@ -16,7 +16,7 @@ const experiences = [
     title: 'Master\'s Thesis Researcher',
     organization: 'German Cancer Research Center (DKFZ)',
     period: '2025.3 - 2026.3',
-    description: 'Built a heterogeneous graph neural network with cross-modal attention for cell segmentation in spatial transcriptomics (Segger project); manuscript in review at Nature Methods.',
+    description: 'Thesis on top of Elyas Heidari\'s Segger model: an interpretability framework for its attention and embeddings, a study of the Aligned Segger extension, and a benchmark across 8 cancer datasets.',
   },
   {
     title: 'Research Assistant',

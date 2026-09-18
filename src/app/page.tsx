@@ -21,12 +21,13 @@ export default function Home() {
                 </span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                M.Sc. Scientific Computing, Universität Heidelberg (2026, grade 1.3)
+                M.Sc. Scientific Computing, Universität Heidelberg (2026)
               </p>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                I work on geometric deep learning for spatial omics, causal inference in healthcare,
-                and health economics — most recently building graph neural networks for cell
-                segmentation at the German Cancer Research Center (DKFZ).
+                I want to build trustworthy machine learning for health and biomedicine — systems
+                whose answers you can inspect, not just score. My thesis at the German Cancer
+                Research Center (DKFZ) asked what a spatial-transcriptomics graph model has actually
+                learned, and whether higher accuracy means better biology.
               </p>
               <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
                 <div className="flex flex-wrap gap-4">
@@ -80,10 +81,10 @@ export default function Home() {
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-navy-900">Geometric Deep Learning</h3>
+              <h3 className="text-xl font-semibold text-navy-900">Interpretable Geometric Deep Learning</h3>
               <p className="mt-2 text-gray-500">
-                Building heterogeneous graph neural networks for cell segmentation in spatial
-                transcriptomics (Segger project, DKFZ; manuscript under review at Nature Methods)
+                Opening up graph neural networks for spatial transcriptomics: what their attention
+                learns, and why accuracy metrics alone can decouple from biological meaning
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">

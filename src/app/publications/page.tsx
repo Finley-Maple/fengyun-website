@@ -7,12 +7,6 @@ export const metadata: Metadata = {
 
 const publications = [
   {
-    title: 'Digesting cell segmentation in spatial transcriptomics via graph representation learning (Segger)',
-    journal: 'Nature Methods (in review)',
-    description: 'Heterogeneous graph neural network with cross-modal attention over transcripts and cells for high-accuracy cell segmentation in imaging-based spatial transcriptomics',
-    link: undefined,
-  },
-  {
     title: 'Exploring COPD patient clusters and associations with health-related quality of life using a machine learning approach: a nationwide cross-sectional study',
     journal: 'Engineering',
     description: 'Identify the phenotypes of COPD patients with respect to the socio-characteristics and comorbidities using unsupervised machine learning techniques',
