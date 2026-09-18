@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NEXT_PUBLIC_SITE_URL = "https://fengyunyu.de"
+  GOOGLE_SCHOLAR_LINK = "https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en"

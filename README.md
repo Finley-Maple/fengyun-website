@@ -35,11 +35,11 @@ npm start
 
 ## Deployment
 
-This website is configured for deployment on Vercel:
+This website is configured for deployment on Netlify:
 
 1. Push your code to a GitHub repository
-2. Import the repository in Vercel
-3. Deploy with default settings
+2. Import the repository in Netlify (New site from Git)
+3. Netlify auto-detects the settings from `netlify.toml` and deploys
 
 ## Project Structure
 
