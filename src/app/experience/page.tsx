@@ -41,13 +41,9 @@ const experiences = [
 export default function Experience() {
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-navy-600 font-semibold tracking-wide uppercase">Experience</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-            Research Timeline
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Experience</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Research Timeline</h1>
 
         <div className="mt-16">
           <div className="flow-root">
@@ -63,7 +59,7 @@ export default function Experience() {
                     )}
                     <div className="relative flex space-x-3">
                       <div>
-                        <span className="h-8 w-8 rounded-full bg-navy-600 flex items-center justify-center ring-8 ring-white">
+                        <span className="h-8 w-8 rounded-full bg-clay-500 flex items-center justify-center ring-8 ring-white">
                           <svg
                             className="h-5 w-5 text-white"
                             xmlns="http://www.w3.org/2000/svg"

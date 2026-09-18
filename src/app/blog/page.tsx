@@ -12,22 +12,18 @@ export default function BlogIndex() {
 
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-navy-600 font-semibold tracking-wide uppercase">Blog</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-            Writing
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Blog</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Writing</h1>
 
-        <div className="mt-16 max-w-3xl mx-auto space-y-10">
+        <div className="mt-12 max-w-3xl space-y-6">
           {posts.length === 0 && (
-            <p className="text-center text-gray-500">No posts yet — check back soon.</p>
+            <p className="text-gray-500">No posts yet — check back soon.</p>
           )}
           {posts.map((post) => (
-            <article key={post.slug} className="border-b border-gray-200 pb-8">
-              <Link href={`/blog/${post.slug}`} className="block group">
-                <h3 className="text-xl font-medium text-navy-900 group-hover:text-navy-600">
+            <article key={post.slug}>
+              <Link href={`/blog/${post.slug}`} className="card block group">
+                <h3 className="text-xl font-medium text-navy-900 group-hover:text-clay-700">
                   {post.title}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">{post.date}</p>
@@ -37,7 +33,7 @@ export default function BlogIndex() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-block bg-navy-50 text-navy-700 text-xs font-medium px-2 py-1 rounded"
+                        className="inline-block bg-clay-50 text-clay-700 text-xs font-medium px-2 py-1 rounded"
                       >
                         {tag}
                       </span>

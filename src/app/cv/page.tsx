@@ -27,20 +27,16 @@ const highlights = [
 export default function CV() {
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-navy-600 font-semibold tracking-wide uppercase">Curriculum Vitae</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-            Professional Highlights
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Curriculum Vitae</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Professional Highlights</h1>
 
         <div className="mt-16">
-          <div className="text-center">
+          <div>
             <a
               href="/Fengyun_Yu_CV.pdf"
               download
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-navy-600 hover:bg-navy-700"
+              className="btn-primary"
             >
               <svg
                 className="mr-2 h-5 w-5"
@@ -63,7 +59,7 @@ export default function CV() {
               {highlights.map((highlight, index) => (
                 <div
                   key={index}
-                  className="relative p-6 bg-white rounded-lg border border-gray-200 hover:border-navy-500 transition-colors"
+                  className="card"
                 >
                   <h3 className="text-lg font-medium text-navy-900">{highlight.title}</h3>
                   <p className="mt-2 text-base text-gray-500">{highlight.description}</p>

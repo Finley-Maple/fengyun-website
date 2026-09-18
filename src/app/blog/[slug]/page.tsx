@@ -39,7 +39,7 @@ export default async function BlogPost({ params }: Props) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-block bg-navy-50 text-navy-700 text-xs font-medium px-2 py-1 rounded"
+                className="inline-block bg-clay-50 text-clay-700 text-xs font-medium px-2 py-1 rounded"
               >
                 {tag}
               </span>

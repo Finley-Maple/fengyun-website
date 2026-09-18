@@ -35,21 +35,17 @@ const publications = [
 export default function Publications() {
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-navy-600 font-semibold tracking-wide uppercase">Publications</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-            Research Papers
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Publications</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Research Papers</h1>
 
         <div className="mt-16">
-          <div className="text-center mb-12">
+          <div className="mb-10">
             <a
               href="https://scholar.google.com/citations?user=7bPHV-AAAAAJ&hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-navy-700 bg-navy-100 hover:bg-navy-200"
+              className="btn-secondary"
             >
               <svg
                 className="mr-2 h-5 w-5"
@@ -71,12 +67,12 @@ export default function Publications() {
             {publications.map((publication, index) => (
               <div
                 key={index}
-                className="relative p-6 bg-white rounded-lg border border-gray-200 hover:border-navy-500 transition-colors"
+                className="card"
               >
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="text-lg font-medium text-navy-900">{publication.title}</h3>
-                    <p className="mt-1 text-sm text-navy-600">{publication.journal}</p>
+                    <p className="mt-1 text-sm font-medium text-clay-700">{publication.journal}</p>
                     <p className="mt-2 text-base text-gray-500">{publication.description}</p>
                   </div>
                   {publication.link && (

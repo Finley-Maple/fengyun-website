@@ -40,10 +40,11 @@ const interests = [
 export default function PersonalInterests() {
   return (
     <main className="bg-white min-h-screen py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-12 text-center">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-navy-900 mb-2">Personal Interests</h1>
-          <p className="text-navy-600 text-lg">A glimpse into my hobbies and passions outside academia.</p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="mb-12">
+          <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Personal Interests</p>
+          <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Outside the lab</h1>
+          <p className="mt-2 text-lg text-gray-500">A glimpse into my hobbies and passions outside academia.</p>
         </header>
         <div className="space-y-16">
           {interests.map((interest) => (

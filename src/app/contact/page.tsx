@@ -23,13 +23,9 @@ export default function Contact() {
 
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-navy-600 font-semibold tracking-wide uppercase">Contact</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-            Get in Touch
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Contact</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Get in Touch</h1>
 
         <div className="mt-16">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -126,7 +122,7 @@ export default function Contact() {
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-navy-600 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500"
+                    className="btn-primary w-full justify-center"
                   >
                     Send Message
                   </button>
