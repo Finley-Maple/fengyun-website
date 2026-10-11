@@ -1,35 +1,23 @@
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAllSlugs, getPostBySlug } from '@/lib/blog';
+import Link from 'next/link';
+import { getPostBySlug } from '@/lib/blog';
+import { localize, type Lang } from '@/lib/i18n';
 
-interface Props {
-  params: Promise<{ slug: string }>;
-}
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post || post.draft) return {};
-  return {
-    title: `${post.title} - Fengyun Yu`,
-    description: post.excerpt || post.title,
-  };
-}
-
-export default async function BlogPost({ params }: Props) {
-  const { slug } = await params;
+export default function BlogPostPage({ lang, slug }: { lang: Lang; slug: string }) {
   const post = getPostBySlug(slug);
   if (!post || post.draft) notFound();
 
   return (
     <div className="bg-white py-16">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        {lang === 'zh' && (
+          <p className="mb-6 rounded-md bg-navy-50 px-4 py-3 text-sm text-navy-700">
+            本文以英文撰写。
+            <Link href={localize(lang, '/blog')} className="ml-2 font-medium underline">
+              返回文章列表
+            </Link>
+          </p>
+        )}
         <h1 className="text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">
           {post.title}
         </h1>
@@ -48,6 +36,7 @@ export default async function BlogPost({ params }: Props) {
         )}
         <div
           className="prose max-w-none mt-10"
+          lang="en"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </div>

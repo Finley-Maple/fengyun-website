@@ -1,43 +1,71 @@
-import { Metadata } from 'next';
+import type { Lang } from '@/lib/i18n';
 
-export const metadata: Metadata = {
-  title: 'Publications - Fengyun Yu',
-  description: 'Academic publications and research papers by Fengyun Yu.',
+export const publicationsMetadata = {
+  en: {
+    title: 'Publications',
+    description: 'Academic publications and research papers by Fengyun Yu.',
+  },
+  zh: {
+    title: '论文',
+    description: '余枫云发表的学术论文与研究成果。',
+  },
 };
 
+// Titles and journals stay in their original language; only the summaries are translated.
 const publications = [
   {
-    title: 'Exploring COPD patient clusters and associations with health-related quality of life using a machine learning approach: a nationwide cross-sectional study',
+    title:
+      'Exploring COPD patient clusters and associations with health-related quality of life using a machine learning approach: a nationwide cross-sectional study',
     journal: 'Engineering',
-    description: 'Identify the phenotypes of COPD patients with respect to the socio-characteristics and comorbidities using unsupervised machine learning techniques',
+    description: {
+      en: 'Identify the phenotypes of COPD patients with respect to the socio-characteristics and comorbidities using unsupervised machine learning techniques',
+      zh: '使用无监督机器学习方法，依据社会特征与合并症识别慢阻肺患者的表型',
+    },
     link: 'https://doi.org/10.1016/j.eng.2025.05.005',
   },
   {
-    title: 'Preferences regarding COVID-19 vaccination among 12,000 adults in China: A cross-sectional discrete choice experiment.',
+    title:
+      'Preferences regarding COVID-19 vaccination among 12,000 adults in China: A cross-sectional discrete choice experiment.',
     journal: 'PLOS Global Public Health',
-    description: 'How the vaccine preference changes with respect to the socio-characteristics using supervised machine learning techniques',
+    description: {
+      en: 'How the vaccine preference changes with respect to the socio-characteristics using supervised machine learning techniques',
+      zh: '使用有监督机器学习方法，分析疫苗接种偏好如何随社会特征而变化',
+    },
     link: 'https://doi.org/10.1371/journal.pgph.0003387',
   },
   {
-    title: 'The global economic burden of chronic obstructive pulmonary disease for 204 countries and territories in 2020-50: a health-augmented macroeconomic modelling study.',
+    title:
+      'The global economic burden of chronic obstructive pulmonary disease for 204 countries and territories in 2020-50: a health-augmented macroeconomic modelling study.',
     journal: 'Lancet Glob Health',
-    description: 'First to estimate the global economic burden of COPD using a health-augmented macroeconomic modelling approach',
+    description: {
+      en: 'First to estimate the global economic burden of COPD using a health-augmented macroeconomic modelling approach',
+      zh: '首次采用健康增强型宏观经济模型，估算慢阻肺的全球经济负担',
+    },
     link: 'https://doi.org/10.1016/S2214-109X(23)00217-6',
   },
   {
     title: 'Knowledge About COVID-19 Among Adults in China: Cross-sectional Online Survey',
     journal: 'Journal of Medical Internet Research',
-    description: 'First to explore the knowledge about COVID-19 among adults in China using a cross-sectional online survey',
+    description: {
+      en: 'First to explore the knowledge about COVID-19 among adults in China using a cross-sectional online survey',
+      zh: '首次通过横断面在线调查，探究中国成年人对新冠肺炎的认知情况',
+    },
     link: 'https://doi.org/10.2196/26940',
   },
 ];
 
-export default function Publications() {
+const text = {
+  en: { eyebrow: 'Publications', heading: 'Research Papers', scholar: 'View on Google Scholar', view: 'View Paper' },
+  zh: { eyebrow: '论文', heading: '研究论文', scholar: '在 Google Scholar 上查看', view: '查看论文' },
+};
+
+export default function PublicationsPage({ lang }: { lang: Lang }) {
+  const t = text[lang];
   return (
     <div className="bg-white py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">Publications</p>
-        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">Research Papers</h1>
+        <p className="text-sm font-semibold uppercase tracking-wide text-clay-600">{t.eyebrow}</p>
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-navy-900">{t.heading}</h1>
 
         <div className="mt-16">
           <div className="mb-10">
@@ -59,21 +87,18 @@ export default function Publications() {
                   clipRule="evenodd"
                 />
               </svg>
-              View on Google Scholar
+              {t.scholar}
             </a>
           </div>
 
           <div className="space-y-8">
-            {publications.map((publication, index) => (
-              <div
-                key={index}
-                className="card"
-              >
+            {publications.map((publication) => (
+              <div key={publication.link} className="card">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="text-lg font-medium text-navy-900">{publication.title}</h3>
                     <p className="mt-1 text-sm font-medium text-clay-700">{publication.journal}</p>
-                    <p className="mt-2 text-base text-gray-500">{publication.description}</p>
+                    <p className="mt-2 text-base text-gray-500">{publication.description[lang]}</p>
                   </div>
                   {publication.link && (
                     <a
@@ -94,7 +119,7 @@ export default function Publications() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      View Paper
+                      {t.view}
                     </a>
                   )}
                 </div>
@@ -105,4 +130,4 @@ export default function Publications() {
       </div>
     </div>
   );
-} 
+}

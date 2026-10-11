@@ -4,18 +4,23 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navigationItems } from '@/types/navigation';
+import { localize, switchPath, type Lang } from '@/lib/i18n';
 
-export default function Navbar() {
+export default function Navbar({ lang }: { lang: Lang }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const otherLang: Lang = lang === 'en' ? 'zh' : 'en';
+  const switchHref = switchPath(lang, pathname);
+  const switchLabel = lang === 'en' ? '中文' : 'EN';
+  const switchTitle = lang === 'en' ? '切换到中文' : 'Switch to English';
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-navy-900 font-semibold text-xl">
-              Fengyun Yu
+            <Link href={localize(lang, '/')} className="text-navy-900 font-semibold text-xl">
+              {lang === 'zh' ? '余枫云' : 'Fengyun Yu'}
             </Link>
           </div>
 
@@ -24,16 +29,25 @@ export default function Navbar() {
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localize(lang, item.href)}
                 className={`${
-                  pathname === item.href
+                  pathname === localize(lang, item.href)
                     ? 'text-navy-900 border-b-2 border-navy-900'
                     : 'text-gray-600 hover:text-navy-900'
                 } px-3 py-2 text-sm font-medium transition-colors duration-200`}
               >
-                {item.label}
+                {item.label[lang]}
               </Link>
             ))}
+            <a
+              href={switchHref}
+              hrefLang={otherLang === 'zh' ? 'zh-CN' : 'en'}
+              lang={otherLang === 'zh' ? 'zh-CN' : 'en'}
+              title={switchTitle}
+              className="whitespace-nowrap rounded-md border border-navy-200 px-3 py-1.5 text-sm font-medium text-navy-700 transition-colors hover:bg-navy-50"
+            >
+              {switchLabel}
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -73,17 +87,25 @@ export default function Navbar() {
           {navigationItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={localize(lang, item.href)}
               className={`${
-                pathname === item.href
+                pathname === localize(lang, item.href)
                   ? 'bg-navy-50 text-navy-900'
                   : 'text-gray-600 hover:bg-navy-50 hover:text-navy-900'
               } block px-3 py-2 rounded-md text-base font-medium`}
               onClick={() => setIsOpen(false)}
             >
-              {item.label}
+              {item.label[lang]}
             </Link>
           ))}
+          <a
+            href={switchHref}
+            hrefLang={otherLang === 'zh' ? 'zh-CN' : 'en'}
+            lang={otherLang === 'zh' ? 'zh-CN' : 'en'}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-navy-50 hover:text-navy-900"
+          >
+            {switchLabel}
+          </a>
         </div>
       </div>
     </nav>
